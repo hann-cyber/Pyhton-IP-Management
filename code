@@ -1,0 +1,34 @@
+# The following algorithm updates a file of IP addresses.
+
+# imports the allow list
+importFile = "allow_list.txt"
+
+# defines IP addresses to be removed.
+removeList = ["192.168.10.183", "192.168.2.63", "192.168.50.54"]
+
+# this block of code can be uncommented if the IPs to remove are in a text file.
+# importFile2 = "remove_list.txt"
+# with open(importFile2, "r") as file2:
+#   removeList = file2.read()
+# removeList = removeList.split()
+
+# opens the allow list to read as a string
+with open(importFile, "r") as file:
+    # stores the allow list in a variable called allowList
+    allowList = file.read()
+
+# converts the string into a list so it may be used in the upcoming loop.
+allowList = allowList.split()
+
+# begins a loop to check if IPs are contained in a remove list.
+for ip in removeList:
+    # if the IP is present, it will be removed.
+    if ip in allowList:
+        allowList.remove(ip)
+
+    # rebuilds the allow list.
+allowList = "\n".join(allowList)
+
+# writes the reformed allow list.
+with open(importFile, "w") as file:
+    file.write(allowList)
